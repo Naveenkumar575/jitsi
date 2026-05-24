@@ -94,19 +94,28 @@ func generateToken(w http.ResponseWriter, r *http.Request) {
 	mu.Unlock()
 
 	/// 🔹 JWT Claims
-	claims := jwt.MapClaims{
-		"aud": "jitsi",
-		"iss": "chat",
-		"sub": appID,
-		"room": room,
-		"exp": time.Now().Add(time.Hour).Unix(),
-		"context": map[string]interface{}{
-			"user": map[string]interface{}{
-				"name":      name,
-				"moderator": isModerator,
-			},
-		},
-	}
+/// 🔹 JWT Claims
+claims := jwt.MapClaims{
+    "aud":  "jitsi",
+    "iss":  "chat",
+    "sub":  appID,
+    "room": room,
+    "exp":  time.Now().Add(time.Hour).Unix(),
+    "context": map[string]interface{}{
+        "user": map[string]interface{}{
+            "name":      name,
+            "moderator": isModerator,
+        },
+        // ── ADD THIS BLOCK ──────────────────────────────
+        "features": map[string]interface{}{
+            "recording":     isModerator, // only host sees record button
+            "livestreaming": false,
+            "outbound-call": false,
+            "transcription": false,
+        },
+        // ────────────────────────────────────────────────
+    },
+}
 
 	/// 🔹 Create token
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
