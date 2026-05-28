@@ -20,8 +20,8 @@ import (
 )
 
 var (
-	appID      = "vpaas-magic-cookie-f6af969cc08141a29d1483448c6af720"
-	keyID      = "vpaas-magic-cookie-f6af969cc08141a29d1483448c6af720/02137d"
+	appID      = "vpaas-magic-cookie-8d7b7511de354ef6b70a568a17618d3c"
+	keyID      = "vpaas-magic-cookie-8d7b7511de354ef6b70a568a17618d3c/914289"
 	privateKey *rsa.PrivateKey
 	roomState  = make(map[string]bool)
 	mu         sync.Mutex
